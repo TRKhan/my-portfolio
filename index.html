@@ -215,8 +215,8 @@
           <input id="cf-website" name="website" type="text" tabindex="-1" autocomplete="off">
         </div>
 
-        <!-- Cloudflare Turnstile captcha. Replace the site key with your own (see README). -->
-        <div class="cf-turnstile" data-sitekey="1x00000000000000000000AA" data-theme="dark"></div>
+        <!-- Cloudflare Turnstile captcha (site key is public; the secret lives in Vercel env vars) -->
+        <div class="cf-turnstile" data-sitekey="0x4AAAAAAGSSU86ZYLE6o0Uv" data-theme="dark"></div>
 
         <div class="form-actions">
           <button id="cf-submit" class="btn btn-primary" type="submit">Send Message</button>
