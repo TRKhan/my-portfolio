@@ -72,15 +72,68 @@ if ("IntersectionObserver" in window) {
   fadeEls.forEach((el) => el.classList.add("visible"));
 }
 
-// ===== Contact button: show a thank-you message =====
-const contactBtn = document.getElementById("contact-btn");
-const thankYou = document.getElementById("thank-you");
+// ===== Contact form: validate, then send to the /api/contact function =====
+const form = document.getElementById("contact-form");
+const statusEl = document.getElementById("form-status");
+const submitBtn = document.getElementById("cf-submit");
 
-contactBtn.addEventListener("click", () => {
-  thankYou.textContent = "Thank you for reaching out! I'll get back to you soon. 🙌";
-  thankYou.classList.add("show");
-  contactBtn.textContent = "Message Sent ✓";
-  contactBtn.disabled = true;
+function setStatus(message, type) {
+  statusEl.textContent = message;
+  statusEl.className = `form-status show ${type}`;
+}
+
+form.addEventListener("submit", async (event) => {
+  event.preventDefault();
+
+  const data = Object.fromEntries(new FormData(form));
+  // Turnstile adds its token to the form as "cf-turnstile-response"
+  const token = data["cf-turnstile-response"];
+
+  if (!data.name.trim() || !data.email.trim() || !data.message.trim()) {
+    setStatus("Please fill in your name, email and message.", "error");
+    return;
+  }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email.trim())) {
+    setStatus("Please enter a valid email address.", "error");
+    return;
+  }
+  if (!token) {
+    setStatus("Please complete the captcha check.", "error");
+    return;
+  }
+
+  submitBtn.disabled = true;
+  submitBtn.textContent = "Sending…";
+  setStatus("", "");
+
+  try {
+    const response = await fetch("/api/contact", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name: data.name,
+        email: data.email,
+        subject: data.subject,
+        message: data.message,
+        website: data.website,
+        token,
+      }),
+    });
+    const result = await response.json().catch(() => ({}));
+
+    if (!response.ok) {
+      throw new Error(result.error || "Something went wrong. Please try again.");
+    }
+    form.reset();
+    setStatus("Thank you! Your message has been sent. I'll get back to you soon. 🙌", "success");
+  } catch (err) {
+    setStatus(err.message, "error");
+  } finally {
+    submitBtn.disabled = false;
+    submitBtn.textContent = "Send Message";
+    // Each captcha token works only once, so get a fresh one
+    if (window.turnstile) window.turnstile.reset();
+  }
 });
 
 // ===== Footer year =====

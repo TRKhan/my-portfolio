@@ -296,21 +296,69 @@ a {
 .contact { text-align: center; }
 .contact .section-title::after { left: 25%; }
 .contact > p { color: var(--muted); margin-bottom: 2rem; }
-.contact .hero-actions { justify-content: center; }
 
-.thank-you {
-  margin-top: 1.5rem;
-  font-size: 1.1rem;
+/* ===== Contact form ===== */
+.contact-form {
+  max-width: 640px;
+  margin: 0 auto;
+  text-align: left;
+  display: grid;
+  gap: 1.1rem;
+}
+.contact-form:hover { transform: none; }
+.form-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.1rem;
+}
+.field { display: grid; gap: 0.4rem; }
+.field label {
+  font-size: 0.9rem;
   font-weight: 600;
-  color: var(--accent-2);
+}
+.optional { color: var(--muted); font-weight: 400; }
+.field input,
+.field textarea {
+  width: 100%;
+  font: inherit;
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.75rem 0.9rem;
+  transition: border-color 0.25s, box-shadow 0.25s;
+}
+.field textarea { resize: vertical; min-height: 140px; }
+.field input:focus,
+.field textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(124, 92, 255, 0.25);
+}
+.hp {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+.cf-turnstile { min-height: 65px; }
+.form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.form-actions .btn:disabled { opacity: 0.6; cursor: wait; transform: none; }
+
+.form-status {
+  font-weight: 600;
+  min-height: 1.5em;
   opacity: 0;
-  transform: translateY(10px);
-  transition: opacity 0.5s, transform 0.5s;
+  transition: opacity 0.4s;
 }
-.thank-you.show {
-  opacity: 1;
-  transform: translateY(0);
-}
+.form-status.show { opacity: 1; }
+.form-status.success { color: var(--accent-2); }
+.form-status.error { color: #f87171; }
 
 /* ===== Footer ===== */
 .footer {
@@ -343,7 +391,7 @@ a {
   .nav-links a { font-size: 0.85rem; }
   .card { padding: 1.5rem; }
   .btn { width: 100%; text-align: center; }
-  .hero-actions { flex-direction: column; }
+  .hero-actions, .form-actions { flex-direction: column; }
 }
 
 /* ===== Respect reduced-motion preferences ===== */
