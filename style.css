@@ -271,6 +271,7 @@ a {
 .contact { text-align: center; }
 .contact .section-title::after { left: 25%; }
 .contact > p { color: var(--muted); margin-bottom: 2rem; }
+.contact .hero-actions { justify-content: center; }
 
 .thank-you {
   margin-top: 1.5rem;
