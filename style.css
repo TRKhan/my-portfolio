@@ -267,6 +267,31 @@ a {
   margin-bottom: 1rem;
 }
 
+/* ===== Experience ===== */
+.timeline {
+  display: grid;
+  gap: 1.5rem;
+}
+.role-meta {
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--accent-2) !important;
+  margin-bottom: 0.4rem;
+}
+.role-org {
+  margin-bottom: 0.8rem;
+  font-weight: 600;
+}
+.card ul {
+  color: var(--muted);
+  padding-left: 1.2rem;
+}
+.card li + li { margin-top: 0.4rem; }
+.card .plain-list { list-style: none; padding-left: 0; }
+.plain-list strong { color: var(--text); }
+
 /* ===== Contact ===== */
 .contact { text-align: center; }
 .contact .section-title::after { left: 25%; }

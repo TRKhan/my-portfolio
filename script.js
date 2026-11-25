@@ -3,10 +3,10 @@ document.documentElement.classList.remove("no-js");
 
 // ===== Typing effect: types each role, deletes it, then moves to the next =====
 const roles = [
-  "AI Automation Learner",
-  "Prompt Writer",
-  "Automation Builder",
-  "Web Developer in Progress",
+  "Techno-Functional Consultant",
+  "Business Analyst – SAP BO BI",
+  "App Dev & Analytics Lead",
+  "E-commerce Strategist",
 ];
 
 const typedEl = document.getElementById("typed");
